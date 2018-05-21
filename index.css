@@ -1,0 +1,52 @@
+body{
+  background-color: #082E2D;  
+}
+
+.upper{
+  background-color: #137271;
+  height: calc(80vw * (9 / 16));
+}
+
+.svg-map {
+  width: 80vw;
+}
+
+svg .land-boundary {
+  fill: #082e2d;
+}
+
+svg .focus-boundary {
+  fill-opacity: 0.66;
+}
+
+svg .country-boundary {
+  fill: none;
+  stroke-opacity: 0.33;
+  stroke: #f3efec;
+  stroke-width: 0.2;
+}
+
+
+.lower{
+  background-color: #082E2D;  
+  transform: translateY(-15%);
+}
+
+.container{
+  width: 100%;
+  max-width: 100%;
+}
+
+.table thead th {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.table td {
+  border-bottom:rgba(255, 255, 255, 0.1) 1px solid; 
+}
+
+.table {
+  width: 100%;
+}
+
+
