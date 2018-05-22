@@ -1,10 +1,20 @@
-body{
-  background-color: #082E2D;  
+body {
+  background-color: #082e2d;
 }
 
-.upper{
+.container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.upper {
   background-color: #137271;
   height: calc(80vw * (9 / 16));
+}
+
+.lower {
+  background-color: #082e2d;
+  transform: translateY(-15%);
 }
 
 .svg-map {
@@ -26,15 +36,8 @@ svg .country-boundary {
   stroke-width: 0.2;
 }
 
-
-.lower{
-  background-color: #082E2D;  
-  transform: translateY(-15%);
-}
-
-.container{
+.table {
   width: 100%;
-  max-width: 100%;
 }
 
 .table thead th {
@@ -42,11 +45,5 @@ svg .country-boundary {
 }
 
 .table td {
-  border-bottom:rgba(255, 255, 255, 0.1) 1px solid; 
+  border-bottom: rgba(255, 255, 255, 0.1) 1px solid;
 }
-
-.table {
-  width: 100%;
-}
-
-

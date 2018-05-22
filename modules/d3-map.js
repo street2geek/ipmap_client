@@ -74,7 +74,7 @@ export default (function() {
       .attr("stroke-width", "1px")
       .attr("stroke-opacity", 0.4)
       .transition()
-      .duration(200)
+      .duration(150)
       .ease(d3.easeCubicInOut)
       .attr("r", 40)
       .attr("fill", "#EF4836")
@@ -84,7 +84,7 @@ export default (function() {
 
         dot
           .transition()
-          .duration(150)
+          .duration(100)
           .attr("r", 4)
           .attr("fill", "#EF4836")
           .attr("stroke", "#361")
