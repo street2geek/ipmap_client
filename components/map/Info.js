@@ -1,7 +1,6 @@
 import { h } from "hyperapp";
 
 const Info = ({ timestamp, src }) => {
-  console.log(src.ip);
   return (
     <tr>
       <td>{timestamp}</td>
