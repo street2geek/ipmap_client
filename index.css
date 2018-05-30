@@ -40,12 +40,19 @@ svg .country-boundary {
   width: 100%;
 }
 
+.table tr {
+  display: flex;
+  justify-content: center;
+}
+
 .table thead th {
   border-color: rgba(255, 255, 255, 0.1);
- color: #9a9a9a;
+  color: #9a9a9a;
+  flex: 1 0;
 }
 
 .table td {
   border-bottom: rgba(255, 255, 255, 0.1) 1px solid;
   color: #f3efec;
+  flex: 1 0;
 }
