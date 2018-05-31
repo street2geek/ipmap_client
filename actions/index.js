@@ -27,7 +27,6 @@ export default {
     actions.subscribeToStream();
   },
   plotMap: d => (state, actions) => {
-    console.log(state.snaps);
     if (d.dst.location) d3m.d3PlotMap(d);
   }
 };
