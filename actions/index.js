@@ -15,11 +15,11 @@ export default {
     });
   },
   saveSnapshot: d => state => {
-    if (state.snaps.length < 6) {
-      return { snaps: [...state.snaps, d] };
+    if (state.snaps.length < 5) {
+      return { snaps: [d, ...state.snaps] };
     } else {
-      let shiftSnap = remove(state.snaps, 0);
-      return { snaps: [...shiftSnap, d] };
+      let shiftSnap = remove(state.snaps, 4);
+      return { snaps: [d, ...shiftSnap] };
     }
   },
   initializeD3Map: el => (state, actions) => {
