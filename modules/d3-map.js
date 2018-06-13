@@ -54,17 +54,17 @@ export default (function() {
     let circle = d3
       .select("svg")
       .selectAll("circle")
-      .data([data.dst]);
+      .data(data);
 
     circle
       .enter()
       .append("circle")
       .merge(circle)
       .attr("cx", d => {
-        //console.log([d.location.lon, d.location.lat]);
-        return projection([d.location.lon, d.location.lat])[0];
+        console.log(d);
+        return projection([d.dst.location.lon, d.dst.location.lat])[0];
       })
-      .attr("cy", d => projection([d.location.lon, d.location.lat])[1]);
+      .attr("cy", d => projection([d.dst.location.lon, d.dst.location.lat])[1]);
 
     circle
       .attr("r", 4)
@@ -72,8 +72,15 @@ export default (function() {
       .attr("fill-opacity", 0.8)
       .attr("stroke", "#361")
       .attr("stroke-width", "1px")
-      .attr("stroke-opacity", 0.4)
+      .attr("stroke-opacity", 0.4);
+
+    circleTransition(circle);
+  }
+
+  function circleTransition(circle) {
+    circle
       .transition()
+      .delay(d => Math.floor(Math.random() * 100 + 0))
       .duration(150)
       .ease(d3.easeCubicInOut)
       .attr("r", 40)
@@ -85,14 +92,17 @@ export default (function() {
         dot
           .transition()
           .duration(100)
-          .attr("r", 4)
+          .attr("r", 2.2)
           .attr("fill", "#EF4836")
           .attr("stroke", "#361")
           .attr("stroke-width", "1px")
           .on("end", function() {
             let point = d3.select(this);
 
-            point.transition().duration(100);
+            point
+              .transition()
+              .duration(100)
+              .attr("fill", "#fff");
           });
       });
   }
@@ -100,6 +110,5 @@ export default (function() {
   return {
     d3DrawMap,
     d3PlotMap
-  }
-
+  };
 })();
