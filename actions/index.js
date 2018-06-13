@@ -14,8 +14,8 @@ export default {
       });
     });
   },
-  saveSnapshot: d => state => {
-    return { snaps: [d, ...state.snaps] };
+  saveSnapshot: data => state => {
+    return { snaps: [data, ...state.snaps] };
   },
   resetSnapShot: () => {
     return { snaps: [] };
@@ -25,8 +25,9 @@ export default {
     actions.subscribeToStream();
     setInterval(actions.resetSnapShot, 50000);
   },
-  plotMap: d => (state, actions) => {
+  plotMap: () => (state, actions) => {
     console.log(state.snaps);
-    d3m.d3PlotMap(state.snaps);
+    let d = state.snaps.filter(snap => snap.dst.location);
+    d3m.d3PlotMap(d);
   }
 };

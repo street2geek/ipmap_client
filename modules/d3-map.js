@@ -56,6 +56,8 @@ export default (function() {
       .selectAll("circle")
       .data(data);
 
+    //circle.exit().remove();
+
     circle
       .enter()
       .append("circle")

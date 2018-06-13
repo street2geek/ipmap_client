@@ -30569,6 +30569,8 @@ exports.default = function () {
 
     var circle = _d3Importer2.default.select("svg").selectAll("circle").data(data);
 
+    //circle.exit().remove();
+
     circle.enter().append("circle").merge(circle).attr("cx", function (d) {
       console.log(d);
       return projection([d.dst.location.lon, d.dst.location.lat])[0];
@@ -30636,9 +30638,9 @@ exports.default = {
       });
     };
   },
-  saveSnapshot: function saveSnapshot(d) {
+  saveSnapshot: function saveSnapshot(data) {
     return function (state) {
-      return { snaps: [d].concat(_toConsumableArray(state.snaps)) };
+      return { snaps: [data].concat(_toConsumableArray(state.snaps)) };
     };
   },
   resetSnapShot: function resetSnapShot() {
@@ -30651,10 +30653,13 @@ exports.default = {
       setInterval(actions.resetSnapShot, 50000);
     };
   },
-  plotMap: function plotMap(d) {
+  plotMap: function plotMap() {
     return function (state, actions) {
       console.log(state.snaps);
-      _d3Map2.default.d3PlotMap(state.snaps);
+      var d = state.snaps.filter(function (snap) {
+        return snap.dst.location;
+      });
+      _d3Map2.default.d3PlotMap(d);
     };
   }
 };
@@ -50272,7 +50277,7 @@ var state = {
 var main = (0, _hyperapp.app)(state, _actions2.default, _View2.default, document.body);
 
 var unsubscribe = _router.location.subscribe(main.location);
-},{"core-js/modules/es6.typed.array-buffer":10,"core-js/modules/es6.typed.int8-array":8,"core-js/modules/es6.typed.uint8-array":9,"core-js/modules/es6.typed.uint8-clamped-array":13,"core-js/modules/es6.typed.int16-array":12,"core-js/modules/es6.typed.uint16-array":11,"core-js/modules/es6.typed.int32-array":14,"core-js/modules/es6.typed.uint32-array":15,"core-js/modules/es6.typed.float32-array":16,"core-js/modules/es6.typed.float64-array":17,"core-js/modules/es6.map":18,"core-js/modules/es6.set":20,"core-js/modules/es6.weak-map":19,"core-js/modules/es6.weak-set":21,"core-js/modules/es6.reflect.apply":22,"core-js/modules/es6.reflect.construct":23,"core-js/modules/es6.reflect.define-property":24,"core-js/modules/es6.reflect.delete-property":25,"core-js/modules/es6.reflect.get":26,"core-js/modules/es6.reflect.get-own-property-descriptor":27,"core-js/modules/es6.reflect.get-prototype-of":28,"core-js/modules/es6.reflect.has":29,"core-js/modules/es6.reflect.is-extensible":30,"core-js/modules/es6.reflect.own-keys":31,"core-js/modules/es6.reflect.prevent-extensions":32,"core-js/modules/es6.reflect.set":33,"core-js/modules/es6.reflect.set-prototype-of":35,"core-js/modules/es6.promise":34,"core-js/modules/es6.symbol":36,"core-js/modules/es6.object.freeze":37,"core-js/modules/es6.object.seal":38,"core-js/modules/es6.object.prevent-extensions":39,"core-js/modules/es6.object.is-frozen":40,"core-js/modules/es6.object.is-sealed":41,"core-js/modules/es6.object.is-extensible":42,"core-js/modules/es6.object.get-own-property-descriptor":43,"core-js/modules/es6.object.get-prototype-of":44,"core-js/modules/es6.object.keys":45,"core-js/modules/es6.object.get-own-property-names":46,"core-js/modules/es6.object.assign":47,"core-js/modules/es6.object.is":48,"core-js/modules/es6.object.set-prototype-of":49,"core-js/modules/es6.function.name":50,"core-js/modules/es6.string.raw":51,"core-js/modules/es6.string.from-code-point":52,"core-js/modules/es6.string.code-point-at":54,"core-js/modules/es6.string.repeat":55,"core-js/modules/es6.string.starts-with":57,"core-js/modules/es6.string.ends-with":53,"core-js/modules/es6.string.includes":56,"core-js/modules/es6.regexp.flags":58,"core-js/modules/es6.regexp.match":59,"core-js/modules/es6.regexp.replace":60,"core-js/modules/es6.regexp.split":62,"core-js/modules/es6.regexp.search":61,"core-js/modules/es6.array.from":64,"core-js/modules/es6.array.of":63,"core-js/modules/es6.array.copy-within":65,"core-js/modules/es6.array.find":67,"core-js/modules/es6.array.find-index":66,"core-js/modules/es6.array.fill":68,"core-js/modules/es6.array.iterator":69,"core-js/modules/es6.number.is-finite":71,"core-js/modules/es6.number.is-integer":72,"core-js/modules/es6.number.is-safe-integer":73,"core-js/modules/es6.number.is-nan":70,"core-js/modules/es6.number.epsilon":74,"core-js/modules/es6.number.min-safe-integer":75,"core-js/modules/es6.number.max-safe-integer":76,"core-js/modules/es6.math.acosh":77,"core-js/modules/es6.math.asinh":79,"core-js/modules/es6.math.atanh":78,"core-js/modules/es6.math.cbrt":80,"core-js/modules/es6.math.clz32":82,"core-js/modules/es6.math.cosh":81,"core-js/modules/es6.math.expm1":83,"core-js/modules/es6.math.fround":84,"core-js/modules/es6.math.hypot":85,"core-js/modules/es6.math.imul":86,"core-js/modules/es6.math.log1p":87,"core-js/modules/es6.math.log10":88,"core-js/modules/es6.math.log2":89,"core-js/modules/es6.math.sign":90,"core-js/modules/es6.math.sinh":92,"core-js/modules/es6.math.tanh":91,"core-js/modules/es6.math.trunc":93,"core-js/modules/es7.array.includes":95,"core-js/modules/es7.object.values":94,"core-js/modules/es7.object.entries":96,"core-js/modules/es7.object.get-own-property-descriptors":97,"core-js/modules/es7.string.pad-start":100,"core-js/modules/es7.string.pad-end":98,"core-js/modules/web.timers":99,"core-js/modules/web.immediate":101,"core-js/modules/web.dom.iterable":102,"regenerator-runtime/runtime":103,"hyperapp":5,"./actions":219,"./components/View":4,"@hyperapp/router":7,"milligram/dist/milligram.css":6,"./index.css":3}],680:[function(require,module,exports) {
+},{"core-js/modules/es6.typed.array-buffer":10,"core-js/modules/es6.typed.int8-array":8,"core-js/modules/es6.typed.uint8-array":9,"core-js/modules/es6.typed.uint8-clamped-array":13,"core-js/modules/es6.typed.int16-array":12,"core-js/modules/es6.typed.uint16-array":11,"core-js/modules/es6.typed.int32-array":14,"core-js/modules/es6.typed.uint32-array":15,"core-js/modules/es6.typed.float32-array":16,"core-js/modules/es6.typed.float64-array":17,"core-js/modules/es6.map":18,"core-js/modules/es6.set":20,"core-js/modules/es6.weak-map":19,"core-js/modules/es6.weak-set":21,"core-js/modules/es6.reflect.apply":22,"core-js/modules/es6.reflect.construct":23,"core-js/modules/es6.reflect.define-property":24,"core-js/modules/es6.reflect.delete-property":25,"core-js/modules/es6.reflect.get":26,"core-js/modules/es6.reflect.get-own-property-descriptor":27,"core-js/modules/es6.reflect.get-prototype-of":28,"core-js/modules/es6.reflect.has":29,"core-js/modules/es6.reflect.is-extensible":30,"core-js/modules/es6.reflect.own-keys":31,"core-js/modules/es6.reflect.prevent-extensions":32,"core-js/modules/es6.reflect.set":33,"core-js/modules/es6.reflect.set-prototype-of":35,"core-js/modules/es6.promise":34,"core-js/modules/es6.symbol":36,"core-js/modules/es6.object.freeze":37,"core-js/modules/es6.object.seal":38,"core-js/modules/es6.object.prevent-extensions":39,"core-js/modules/es6.object.is-frozen":40,"core-js/modules/es6.object.is-sealed":41,"core-js/modules/es6.object.is-extensible":42,"core-js/modules/es6.object.get-own-property-descriptor":43,"core-js/modules/es6.object.get-prototype-of":44,"core-js/modules/es6.object.keys":45,"core-js/modules/es6.object.get-own-property-names":46,"core-js/modules/es6.object.assign":47,"core-js/modules/es6.object.is":48,"core-js/modules/es6.object.set-prototype-of":49,"core-js/modules/es6.function.name":50,"core-js/modules/es6.string.raw":51,"core-js/modules/es6.string.from-code-point":52,"core-js/modules/es6.string.code-point-at":54,"core-js/modules/es6.string.repeat":55,"core-js/modules/es6.string.starts-with":57,"core-js/modules/es6.string.ends-with":53,"core-js/modules/es6.string.includes":56,"core-js/modules/es6.regexp.flags":58,"core-js/modules/es6.regexp.match":59,"core-js/modules/es6.regexp.replace":60,"core-js/modules/es6.regexp.split":62,"core-js/modules/es6.regexp.search":61,"core-js/modules/es6.array.from":64,"core-js/modules/es6.array.of":63,"core-js/modules/es6.array.copy-within":65,"core-js/modules/es6.array.find":67,"core-js/modules/es6.array.find-index":66,"core-js/modules/es6.array.fill":68,"core-js/modules/es6.array.iterator":69,"core-js/modules/es6.number.is-finite":71,"core-js/modules/es6.number.is-integer":72,"core-js/modules/es6.number.is-safe-integer":73,"core-js/modules/es6.number.is-nan":70,"core-js/modules/es6.number.epsilon":74,"core-js/modules/es6.number.min-safe-integer":75,"core-js/modules/es6.number.max-safe-integer":76,"core-js/modules/es6.math.acosh":77,"core-js/modules/es6.math.asinh":79,"core-js/modules/es6.math.atanh":78,"core-js/modules/es6.math.cbrt":80,"core-js/modules/es6.math.clz32":82,"core-js/modules/es6.math.cosh":81,"core-js/modules/es6.math.expm1":83,"core-js/modules/es6.math.fround":84,"core-js/modules/es6.math.hypot":85,"core-js/modules/es6.math.imul":86,"core-js/modules/es6.math.log1p":87,"core-js/modules/es6.math.log10":88,"core-js/modules/es6.math.log2":89,"core-js/modules/es6.math.sign":90,"core-js/modules/es6.math.sinh":92,"core-js/modules/es6.math.tanh":91,"core-js/modules/es6.math.trunc":93,"core-js/modules/es7.array.includes":95,"core-js/modules/es7.object.values":94,"core-js/modules/es7.object.entries":96,"core-js/modules/es7.object.get-own-property-descriptors":97,"core-js/modules/es7.string.pad-start":100,"core-js/modules/es7.string.pad-end":98,"core-js/modules/web.timers":99,"core-js/modules/web.immediate":101,"core-js/modules/web.dom.iterable":102,"regenerator-runtime/runtime":103,"hyperapp":5,"./actions":219,"./components/View":4,"@hyperapp/router":7,"milligram/dist/milligram.css":6,"./index.css":3}],683:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -50441,5 +50446,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[680,2])
+},{}]},{},[683,2])
 //# sourceMappingURL=/ipmap_client.abe98005.map
