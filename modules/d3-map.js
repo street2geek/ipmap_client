@@ -8,21 +8,21 @@ export default (function() {
   const getProjection = () => d3.geoEquirectangular();
 
   function d3DrawMap(el) {
-    let projection = getProjection();
+    const projection = getProjection();
     projection
       .center([5, 15])
       .scale([width / (1.9 * Math.PI)])
       .translate([width / 2, height / 2]);
 
-    let path = d3.geoPath().projection(projection);
+    const path = d3.geoPath().projection(projection);
 
-    let svg = d3
+    const svg = d3
       .select(el)
       .append("svg")
       .attr("class", "svg-map")
       .attr("viewBox", `0 0 ${width} ${height}`);
 
-    let countries = feature(world, world.objects.countries).features;
+    const countries = feature(world, world.objects.countries).features;
 
     svg
       .selectAll(".country")
@@ -46,22 +46,23 @@ export default (function() {
   }
 
   function d3PlotMap(data) {
-    let projection = getProjection()
+    const projection = getProjection()
       .center([5, 15])
       .scale([width / (1.9 * Math.PI)])
       .translate([width / 2, height / 2]);
 
-    let circle = d3
+    const circle = d3
       .select("svg")
       .selectAll("circle")
       .data(data);
 
-    //circle.exit().remove();
+    circle.exit().remove();
 
     circle
       .enter()
       .append("circle")
       .merge(circle)
+      .attr("id", d => d.id)
       .attr("cx", d => {
         console.log(d);
         return projection([d.dst.location.lon, d.dst.location.lat])[0];
@@ -71,7 +72,7 @@ export default (function() {
     circle
       .attr("r", 4)
       .attr("fill", "#c4e3f3")
-      .attr("fill-opacity", 0.8)
+      .attr("fill-opacity", 0.7)
       .attr("stroke", "#361")
       .attr("stroke-width", "1px")
       .attr("stroke-opacity", 0.4);
@@ -87,7 +88,7 @@ export default (function() {
       .ease(d3.easeCubicInOut)
       .attr("r", 40)
       .attr("fill", "#EF4836")
-      .attr("fill-opacity", 0.7)
+      .attr("fill-opacity", 0.5)
       .on("end", function() {
         let dot = d3.select(this);
 

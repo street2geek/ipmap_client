@@ -1,5 +1,5 @@
 import "babel-polyfill";
-import { app } from "hyperapp";
+import { app, h } from "hyperapp";
 import actions from "./actions";
 import view from "./components/View";
 import { location } from "@hyperapp/router";

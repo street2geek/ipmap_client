@@ -1,37 +1,18 @@
 import { h } from "hyperapp";
-import Info from "./Info";
-import { take } from "lodash";
+import Table from "./Table";
 
-const D3Map = (state, actions) => () => (
+const D3Map = ({snaps, init}) => (
   <div>
     <section class="upper">
       <div
         style={styles}
-        oncreate={e => actions.initializeD3Map(e)}
+        oncreate={e => init(e)}
         id="d3Map"
       />
     </section>
     <section class="lower">
       <div class="container">
-        <table class="table ">
-          <thead>
-            <tr>
-              <th>Time Stamp</th>
-              <th>Attacker IP</th>
-              <th>Attacker Name</th>
-              <th>Attacker Origin</th>
-              <th>Port</th>
-            </tr>
-          </thead>
-          <tbody id="d3TableBody">
-            {take(
-              state.snaps.map(({ timestamp, src }) => (
-                <Info timestamp={timestamp} src={src} />
-              )),
-              5
-            )}
-          </tbody>
-        </table>
+       <Table items={snaps} />
       </div>
     </section>
   </div>

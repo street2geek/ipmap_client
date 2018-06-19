@@ -1,6 +1,6 @@
 import { h } from "hyperapp";
 
-const Info = ({ timestamp, src }) => {
+const TableData = ({ timestamp, src }) => {
   return (
     <tr>
       <td>{timestamp}</td>
@@ -12,4 +12,4 @@ const Info = ({ timestamp, src }) => {
   );
 };
 
-export default Info;
+export default TableData;

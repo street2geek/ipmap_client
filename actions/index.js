@@ -7,12 +7,19 @@ export default {
   location: location.actions,
   subscribeToStream: () => (state, actions) => {
     let i = 0;
+
+    //let collection = []; using state object instead.
+
     client.then(conn => {
       conn.subscribe("/", data => {
-        actions.saveSnapshot(Object.assign({ id: ++i }, data));
+        const d = Object.assign({ id: ++i }, data);
+        //collection.push(d);
+        actions.saveSnapshot(d);
         actions.plotMap();
       });
     });
+
+    //setInterval(() => { collection = [] }, 30000);
   },
   saveSnapshot: data => state => {
     return { snaps: [data, ...state.snaps] };
@@ -20,14 +27,15 @@ export default {
   resetSnapShot: () => {
     return { snaps: [] };
   },
-  initializeD3Map: el => (state, actions) => {
+  initializeMap: el => (state, actions) => {
     d3m.d3DrawMap(el);
     actions.subscribeToStream();
-    setInterval(actions.resetSnapShot, 50000);
+    setInterval(actions.resetSnapShot, 30000);
   },
-  plotMap: () => (state, actions) => {
-    console.log(state.snaps);
-    let d = state.snaps.filter(snap => snap.dst.location);
+  plotMap: data => (state) => {
+    //console.log(data);
+    //let d = data.filter(item => item.dst.location);
+    let d = state.snaps.filter(item => item.dst.location);
     d3m.d3PlotMap(d);
   }
 };
