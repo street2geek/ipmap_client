@@ -15,13 +15,15 @@ export default {
         const d = Object.assign({ id: ++i }, data);
 
         collection.push(d);
-        
+
         actions.saveSnapshot(d);
         actions.plotMap(collection);
       });
     });
 
-    setInterval(() => { collection = [] }, 30000);
+    setInterval(() => {
+      collection = [];
+    }, 30000);
   },
   saveSnapshot: data => state => {
     return { snaps: [data, ...state.snaps] };
@@ -34,7 +36,7 @@ export default {
     actions.subscribeToStream();
     setInterval(actions.resetSnapShot, 30000);
   },
-  plotMap: data => (state) => {
+  plotMap: data => state => {
     //console.log(data);
     let d = data.filter(item => item.dst.location);
     //let d = state.snaps.filter(item => item.dst.location);
