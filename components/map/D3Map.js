@@ -1,18 +1,18 @@
 import { h } from "hyperapp";
 import Table from "./Table";
 
-const D3Map = ({snaps, init}) => (
+const D3Map = (state, actions) => () => (
   <div>
     <section class="upper">
       <div
         style={styles}
-        oncreate={e => init(e)}
+        oncreate={e => actions.initializeMap(e)}
         id="d3Map"
       />
     </section>
     <section class="lower">
       <div class="container">
-       <Table items={snaps} />
+       <Table snaps={state.snaps} />
       </div>
     </section>
   </div>

@@ -1,6 +1,5 @@
 import { h } from "hyperapp";
 import { take } from "lodash";
-import { TableData } from "./TableData";
 
 const Table = ({ snaps }) => {
   console.log(snaps);
@@ -17,8 +16,14 @@ const Table = ({ snaps }) => {
       </thead>
       <tbody id="d3TableBody">
         {take(
-          snaps.map((snap) => (
-            <TableData timestamp={snap.timestamp} src={snap.src} />
+          snaps.map(snap => (
+            <tr>
+              <td>{snap.timestamp}</td>
+              <td>{snap.src.ip}</td>
+              <td>{snap.src.asn.asn}</td>
+              <td>{`${snap.src.city_name || ""}, ${snap.src.country_name}`}</td>
+              <td>{snap.src.port}</td>
+            </tr>
           )),
           5
         )}

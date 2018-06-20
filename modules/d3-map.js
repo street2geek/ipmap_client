@@ -64,7 +64,7 @@ export default (function() {
       .merge(circle)
       .attr("id", d => d.id)
       .attr("cx", d => {
-        console.log(d);
+        //console.log(d);
         return projection([d.dst.location.lon, d.dst.location.lat])[0];
       })
       .attr("cy", d => projection([d.dst.location.lon, d.dst.location.lat])[1]);
