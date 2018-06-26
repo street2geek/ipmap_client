@@ -42,16 +42,37 @@ export default (function() {
       .append("path")
       .attr("d", path)
       .attr("class", "country-boundary");
+
   }
 
-  function d3PlotHoneyPotData() {
+  function d3PlotHoneyPotLocale() {
     const circle = d3
       .select("svg")
       .selectAll("circle")
       .data(honeypotData);
+
+    circle
+      .enter()
+      .append("circle")
+      .merge(circle)
+      .attr("cx", d => {
+        console.log(d);
+        return projection(d.geometry.coordinates)[0];
+      })
+      .attr("cy", d => projection(d.geometry.coordinates)[1]);
+
+    circle
+      .attr("r", 5)
+      .attr("fill", "#000")
+      .attr("fill-opacity", 0.7)
+      .attr("stroke", "#361")
+      .attr("stroke-width", "1px")
+      .attr("stroke-opacity", 0.4);
+
+    circle.exit().remove();
   }
 
-  function d3PlotIpData(data) {
+  function d3PlotIpLocale(data) {
     const circle = d3
       .select("svg")
       .selectAll("circle")
@@ -113,7 +134,7 @@ export default (function() {
 
   return {
     d3DrawMap,
-    d3PlotIpData,
-    d3PlotHoneyPotData
+    d3PlotIpLocale,
+    d3PlotHoneyPotLocale
   };
 })();
