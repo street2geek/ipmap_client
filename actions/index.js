@@ -8,22 +8,22 @@ export default {
   subscribeToStream: () => (state, actions) => {
     let i = 0;
 
-    let collection = []; // or use state snaps object instead.
+    //let collection = []; // or use state snaps object instead.
 
     client.then(conn => {
       conn.subscribe("/", data => {
         const d = Object.assign({ id: ++i }, data);
 
-        collection.push(d);
+        //collection.push(d);
 
         actions.saveSnapshot(d);
-        actions.plotMap(collection);
+        actions.plotMap(/*collection*/);
       });
     });
 
-    setInterval(() => {
+   /* setInterval(() => {
       collection = [];
-    }, 30000);
+    }, 30000);*/
   },
   saveSnapshot: data => state => {
     return { snaps: [data, ...state.snaps] };
@@ -38,8 +38,8 @@ export default {
   },
   plotMap: data => state => {
     //console.log(data);
-    let d = data.filter(item => item.dst.location);
-    //let d = state.snaps.filter(item => item.dst.location);
+    //let d = data.filter(item => item.dst.location);
+    let d = state.snaps.filter(item => item.dst.location);
     d3m.d3PlotMap(d);
   }
 };
