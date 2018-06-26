@@ -40,6 +40,6 @@ export default {
     //console.log(data);
     //let d = data.filter(item => item.dst.location);
     let d = state.snaps.filter(item => item.dst.location);
-    d3m.d3PlotSocketData(d);
+    d3m.d3PlotIpData(d);
   }
 };

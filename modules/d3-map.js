@@ -1,19 +1,18 @@
 import { feature, mesh } from "topojson";
 import d3 from "./d3-importer";
 import * as world from "../node_modules/world-atlas/world/110m.json";
+import * as honeypotData from "../assets/json/honeypot-locations.json";
 
 export default (function() {
   const width = 1366;
   const height = 768;
-  const getProjection = () => d3.geoEquirectangular();
+  const projection = d3
+    .geoEquirectangular()
+    .center([5, 15])
+    .scale([width / (1.9 * Math.PI)])
+    .translate([width / 2, height / 2]);
 
   function d3DrawMap(el) {
-    const projection = getProjection();
-    projection
-      .center([5, 15])
-      .scale([width / (1.9 * Math.PI)])
-      .translate([width / 2, height / 2]);
-
     const path = d3.geoPath().projection(projection);
 
     const svg = d3
@@ -45,12 +44,14 @@ export default (function() {
       .attr("class", "country-boundary");
   }
 
-  function d3PlotSocketData(data) {
-    const projection = getProjection()
-      .center([5, 15])
-      .scale([width / (1.9 * Math.PI)])
-      .translate([width / 2, height / 2]);
+  function d3PlotHoneyPotData() {
+    const circle = d3
+      .select("svg")
+      .selectAll("circle")
+      .data(honeypotData);
+  }
 
+  function d3PlotIpData(data) {
     const circle = d3
       .select("svg")
       .selectAll("circle")
@@ -112,6 +113,7 @@ export default (function() {
 
   return {
     d3DrawMap,
-    d3PlotSocketData
+    d3PlotIpData,
+    d3PlotHoneyPotData
   };
 })();
