@@ -46,6 +46,7 @@
     "d3-voronoi": "1",
     "d3-zoom": "1",
     "dayjs": "^1.6.2",
+    "feather-icons": "^4.7.3",
     "hyperapp": "^1.2.5",
     "immutable": "4.0.0-rc.9",
     "lodash": "^4.17.10",

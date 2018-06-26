@@ -45,7 +45,7 @@ export default (function() {
       .attr("class", "country-boundary");
   }
 
-  function d3PlotMap(data) {
+  function d3PlotSocketData(data) {
     const projection = getProjection()
       .center([5, 15])
       .scale([width / (1.9 * Math.PI)])
@@ -112,6 +112,6 @@ export default (function() {
 
   return {
     d3DrawMap,
-    d3PlotMap
+    d3PlotSocketData
   };
 })();

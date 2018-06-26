@@ -9,7 +9,8 @@ import "./index.css";
 
 const state = {
   location: location.state,
-  snaps: []
+  snaps: [],
+  filterOpen: false
 };
 
 const main = app(state, actions, view, document.body);
