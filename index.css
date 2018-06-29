@@ -7,12 +7,12 @@ body {
   max-width: 100%;
 }
 
-.upper {
+.map__upper {
   background-color: #137271;
   height: calc(80vw * (9 / 16));
 }
 
-.lower {
+.map__lower {
   background-color: #082e2d;
   transform: translateY(-15%);
 }
@@ -42,10 +42,89 @@ svg .country-boundary {
 
 .table thead th {
   border-color: rgba(255, 255, 255, 0.1);
- color: #9a9a9a;
+  color: #9a9a9a;
 }
 
 .table td {
   border-bottom: rgba(255, 255, 255, 0.1) 1px solid;
   color: #f3efec;
+}
+
+.map__filter {
+  position: fixed;
+  top: -300px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  padding: 50px 30px;
+  transition: all 0.3s ease-in;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #082e2d;
+}
+
+.map__filter ul {
+  margin-top: 30px;
+}
+
+.map.open .map__filter {
+  top: 0;
+}
+
+.map__wrapper {
+  transition: all 0.3s ease-in;
+}
+
+.map.open .map__wrapper {
+  margin-top: 300px;
+}
+
+/* MENU TOGGLE ICON */
+
+button {
+  outline: none;
+  padding: 0;
+}
+
+.map__toggle:focus {
+  background: #fff;
+}
+
+.map__toggle {
+  position: relative;
+  transform: translateX(-50%);
+  top: 20px;
+  left: 50%;
+  width: 51px;
+  height: 51px;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  background: #fff;
+}
+
+.map__toggle:before,
+.map__toggle:after {
+  position: absolute;
+  content: "";
+  transition: all 0.5s ease;
+  background-color: #232629;
+}
+
+.map__toggle:before {
+  top: 12px;
+  left: 25px;
+  width: 1px;
+  height: 27px;
+}
+.map__toggle:after {
+  top: 25px;
+  left: 12px;
+  width: 27px;
+  height: 1px;
+}
+
+.map.open button.map__toggle:before,
+.map.open button.map__toggle:after {
+  transform: rotate(45deg);
 }

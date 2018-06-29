@@ -41,5 +41,18 @@ export default {
     //let d = data.filter(item => item.dst.location);
     let d = state.snaps.filter(item => item.dst.location);
     d3m.d3PlotIpLocale(d);
+  },
+  toggleFilter: () => state => {
+    return { filterMenu: (state.filterMenu === "closed") ? "open" : "closed" }
+  },
+  filter: (key, value) => state => {
+    return {
+      filter: Object.assign(
+        {
+          key: value
+        },
+        state.filter
+      )
+    };
   }
 };
