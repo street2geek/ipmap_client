@@ -61,6 +61,8 @@ svg .country-boundary {
   text-align: center;
   box-sizing: border-box;
   background-color: #082e2d;
+  color: #fff;
+  z-index: 10;
 }
 
 .map__filter ul {
@@ -108,7 +110,7 @@ button {
   position: absolute;
   content: "";
   transition: all 0.5s ease;
-  background-color: #232629;
+  background-color: #082e2d;
 }
 
 .map__toggle:before {
