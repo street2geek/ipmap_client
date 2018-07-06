@@ -1,6 +1,6 @@
 import { h } from "hyperapp";
 
-const Filter = () => (
+const FilterMenu = () => (
   <div class="map__filter">
   <h3>Select to filter</h3>
     <ul>
@@ -11,4 +11,4 @@ const Filter = () => (
   </div>
 );
 
-export default Filter;
+export default FilterMenu;

@@ -11,6 +11,7 @@ const Table = ({ snaps }) => {
           <th>Attacker IP</th>
           <th>Attacker Name</th>
           <th>Attacker Origin</th>
+          <th>Attacker Target</th>
           <th>Port</th>
         </tr>
       </thead>
@@ -21,7 +22,8 @@ const Table = ({ snaps }) => {
               <td>{snap.timestamp}</td>
               <td>{snap.src.ip}</td>
               <td>{snap.src.asn.asn}</td>
-              <td>{`${snap.src.city_name || ""}, ${snap.src.country_name}`}</td>
+              <td>{`${snap.src.city_name + "," || ""} ${snap.src.country_name}`}</td>
+              <td>{`${snap.dst.city_name + "," || ""} ${snap.dst.country_name}`}</td>
               <td>{snap.src.port}</td>
             </tr>
           )),

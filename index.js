@@ -10,7 +10,6 @@ import "./index.css";
 const state = {
   location: location.state,
   snaps: [],
-  filterMenu: "closed",
   filter: {
     all: true,
     https: false,

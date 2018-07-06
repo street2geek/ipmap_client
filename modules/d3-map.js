@@ -42,48 +42,47 @@ export default (function() {
       .append("path")
       .attr("d", path)
       .attr("class", "country-boundary");
-
   }
 
   function d3PlotHoneyPotLocale() {
-    const circle = d3
+  
+    const marker = d3
       .select("svg")
       .selectAll("circle")
       .data(honeypotData);
 
-    circle
-      .enter()
+    
+      marker.enter()
       .append("circle")
-      .merge(circle)
       .attr("cx", d => {
-        console.log(d);
+        console.log('here: ' + d);
         return projection(d.geometry.coordinates)[0];
       })
       .attr("cy", d => projection(d.geometry.coordinates)[1]);
 
-    circle
+    marker
       .attr("r", 5)
       .attr("fill", "#000")
-      .attr("fill-opacity", 0.7)
+      .attr("fill-opacity", 1)
       .attr("stroke", "#361")
       .attr("stroke-width", "1px")
       .attr("stroke-opacity", 0.4);
 
-    circle.exit().remove();
+    marker.exit().remove();
   }
 
   function d3PlotIpLocale(data) {
-    const circle = d3
+    const marker = d3
       .select("svg")
       .selectAll("circle")
       .data(data);
 
-    circle.exit().remove();
+    marker.exit().remove();
 
-    circle
+    marker
       .enter()
       .append("circle")
-      .merge(circle)
+      .merge(marker)
       .attr("id", d => d.id)
       .attr("cx", d => {
         //console.log(d);
@@ -91,7 +90,7 @@ export default (function() {
       })
       .attr("cy", d => projection([d.dst.location.lon, d.dst.location.lat])[1]);
 
-    circle
+    marker
       .attr("r", 4)
       .attr("fill", "#c4e3f3")
       .attr("fill-opacity", 0.7)
@@ -99,11 +98,11 @@ export default (function() {
       .attr("stroke-width", "1px")
       .attr("stroke-opacity", 0.4);
 
-    circleTransition(circle);
+    markerTransition(marker);
   }
 
-  function circleTransition(circle) {
-    circle
+  function markerTransition(marker) {
+    marker
       .transition()
       .delay(d => Math.floor(Math.random() * 100 + 0))
       .duration(150)

@@ -34,16 +34,13 @@ export default {
     d3m.d3DrawMap(el);
     d3m.d3PlotHoneyPotLocale();
     actions.subscribeToStream();
-    setInterval(actions.resetSnapShot, 30000);
+    setInterval(actions.resetSnapShot, 300000);
   },
   plotMap: data => state => {
     //console.log(data);
     //let d = data.filter(item => item.dst.location);
     let d = state.snaps.filter(item => item.dst.location);
     d3m.d3PlotIpLocale(d);
-  },
-  toggleFilter: () => state => {
-    return { filterMenu: (state.filterMenu === "closed") ? "open" : "closed" }
   },
   filter: (key, value) => state => {
     return {
