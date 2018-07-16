@@ -58,6 +58,6 @@
     "world-atlas": "^1.1.4"
   },
   "devDependencies": {
-    "node-sass": "^4.8.3"
+    "node-sass": "^4.9.2"
   }
 }

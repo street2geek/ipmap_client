@@ -5,16 +5,13 @@ import view from "./components/View";
 import { location } from "@hyperapp/router";
 
 import "milligram/dist/milligram.css";
-import "./index.css";
+import "./index.scss";
 
 const state = {
   location: location.state,
   snaps: [],
-  filter: {
-    all: true,
-    https: false,
-    smtp: false
-  }
+  filteredSnaps: [],
+  services: []
 };
 
 const main = app(state, actions, view, document.body);

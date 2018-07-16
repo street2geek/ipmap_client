@@ -7,22 +7,14 @@ export default {
   location: location.actions,
   subscribeToStream: () => (state, actions) => {
     let i = 0;
-    //let collection = []; // or use state snaps object instead.
 
     client.then(conn => {
       conn.subscribe("/", data => {
         const d = Object.assign({ id: ++i }, data);
-
-        //collection.push(d);
-
         actions.saveSnapshot(d);
-        actions.plotMap(/*collection*/);
+        actions.plotMap(d);
       });
     });
-
-    /* setInterval(() => {
-      collection = [];
-    }, 30000);*/
   },
   saveSnapshot: data => state => {
     return { snaps: [data, ...state.snaps] };
@@ -34,13 +26,12 @@ export default {
     d3m.d3DrawMap(el);
     d3m.d3PlotHoneyPotLocale();
     actions.subscribeToStream();
-    setInterval(actions.resetSnapShot, 300000);
+    setInterval(actions.resetSnapShot, 60000);
   },
   plotMap: data => state => {
-    //console.log(data);
+    console.log(data);
     //let d = data.filter(item => item.dst.location);
-    let d = state.snaps.filter(item => item.dst.location);
-    d3m.d3PlotIpLocale(d);
+    d3m.d3PlotIpLocale(data);
   },
   filter: (key, value) => state => {
     return {
