@@ -2,7 +2,7 @@ import { h } from "hyperapp";
 import { take } from "lodash";
 
 const Table = ({ snaps }) => {
-  console.log(snaps);
+  //console.log(snaps);
   return (
     <table class="table ">
       <thead>

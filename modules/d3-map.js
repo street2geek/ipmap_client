@@ -1,7 +1,7 @@
 import { feature, mesh } from "topojson";
 import d3 from "./d3-importer";
 import * as world from "../node_modules/world-atlas/world/110m.json";
-import * as honeypotData from "../assets/json/honeypot-locations.json";
+
 
 export default (function() {
   const width = 1366;
@@ -44,33 +44,27 @@ export default (function() {
       .attr("class", "country-boundary");
   }
 
-  function d3PlotHoneyPotLocale() {
-  
-    const marker = d3
+  function d3PlotHoneyPotLocale(honeypotData) {
+    const pot = d3
       .select("svg")
       .selectAll("circle")
       .data(honeypotData);
+  
+    console.log(honeypotData);
 
-      console.log(honeypotData);
+    pot.exit().remove();
 
-    
-      marker.enter()
+    pot
+      .enter()
       .append("circle")
+      .merge(pot)
       .attr("cx", d => {
-        console.log('here: ' + d);
-        return projection(d.geometry.coordinates)[0];
+        console.log(d);
+        return projection([d.location.lon, d.location.lat])[0];
       })
-      .attr("cy", d => projection(d.geometry.coordinates)[1]);
-
-    marker
-      .attr("r", 5)
-      .attr("fill", "#000")
-      .attr("fill-opacity", 1)
-      .attr("stroke", "#361")
-      .attr("stroke-width", "1px")
-      .attr("stroke-opacity", 0.4);
-
-    marker.exit().remove();
+      .attr("cy", d => projection([d.location.lon, d.location.lat])[1])
+      .attr("r", "5px")
+      .attr("fill", "#01F9F9");
   }
 
   function d3PlotIpLocale(data) {
@@ -80,7 +74,7 @@ export default (function() {
       .data([data.dst]);
 
     marker.exit().remove();
-      
+
     marker
       .enter()
       .append("circle")
@@ -129,8 +123,6 @@ export default (function() {
       .attr("stroke", "#361")
       .attr("stroke-width", "1px")
       .attr("stroke-opacity", 0.4);
-
-    markerTransition(marker);
   } */
 
   function markerTransition(marker) {
