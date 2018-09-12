@@ -10,9 +10,11 @@ import "./index.scss";
 const state = {
   location: location.state,
   snaps: [],
-  services: [],
   hplocations: [],
-  pots: []
+  pots: [],
+  markerid: 0,
+  gio: {},
+  connection: {}
 };
 
 const main = app(state, actions, view, document.body);

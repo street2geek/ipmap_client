@@ -1,22 +1,23 @@
 import client from "../service/nes";
 import { location } from "@hyperapp/router";
 import d3m from "../modules/d3-map";
+import { Controller } from "../node_modules/giojs/build/gio.module.js";
 //import { remove } from "immutable";
 import { uniq } from "lodash";
-import honeypotData from "../assets/data/honeypot-locations.js";
+//import honeypotData from "../assets/data/honeypot-locations.js";
 
 export default {
   location: location.actions,
-  subscribeToStream: () => (state, actions) => {
-    let i = 0;
-
+  subscribeToStream: (gio) => (state, actions) => {
     client.then(conn => {
       conn.subscribe("/", data => {
-        const d = Object.assign({ id: ++i }, data);
-        actions.saveSnapshot(d);
-        actions.saveHoneyPotlocations(d);
-        actions.plotMap(d);
+        const dst = Object.assign({ id: ++state.markerid }, data.dst);
+        actions.saveSnapshot(data);
+        actions.saveHoneyPotlocations(dst);
+        actions.plotMap(data);
+        actions.plotGio();
       });
+      return {connection: conn}
     });
   },
   saveSnapshot: data => state => {
@@ -30,20 +31,39 @@ export default {
     actions.subscribeToStream();
     setInterval(actions.resetSnapShot, 60000);
   },
-  saveHoneyPotlocations: data => state => {
-    //console.log(data.dst.location);
+  initializeGio: el => (state, actions) => {
+    const gio = new Controller(el);
+    gio.init();
+    actions.subscribeToStream();
+    return {gio: gio}
+  },
+  saveHoneyPotlocations: dst => state => {
+
     let contains = state.pots.some(elem => {
-      return JSON.stringify(data.dst) === JSON.stringify(elem);
+      console.log(elem);
+      return JSON.stringify(dst) === JSON.stringify(elem);
     });
-    //console.log(contains);
-    if (!contains) {
-      state.pots.push(data.dst);
+
+    console.log(contains);
+    if (contains === false) {
+      state.pots.push(dst);
     }
 
     return { hplocations: uniq(state.pots) };
   },
   plotMap: data => state => {
     d3m.d3PlotHoneyPotLocale(state.hplocations);
-    //d3m.d3PlotIpLocale(data);
+    //d3m.d3PlotTarget(data);
+  },
+  plotGio: data => state => {
+    console.log(state.snaps);
+    let d = state.snaps.map((el) => {
+      return {
+        e: el.src.country_code2,
+        i: el.dst.country_code2,
+        v: 1000000
+      }
+    });
+    state.gio.addData(d);
   }
 };

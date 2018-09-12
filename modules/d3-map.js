@@ -2,7 +2,6 @@ import { feature, mesh } from "topojson";
 import d3 from "./d3-importer";
 import * as world from "../node_modules/world-atlas/world/110m.json";
 
-
 export default (function() {
   const width = 1366;
   const height = 768;
@@ -49,8 +48,8 @@ export default (function() {
       .select("svg")
       .selectAll("circle")
       .data(honeypotData);
-  
-    console.log(honeypotData);
+
+    //console.log(honeypotData);
 
     pot.exit().remove();
 
@@ -58,6 +57,7 @@ export default (function() {
       .enter()
       .append("circle")
       .merge(pot)
+      .attr("id", d => d.id)
       .attr("cx", d => {
         console.log(d);
         return projection([d.location.lon, d.location.lat])[0];
@@ -67,34 +67,8 @@ export default (function() {
       .attr("fill", "#01F9F9");
   }
 
-  function d3PlotIpLocale(data) {
-    const marker = d3
-      .select("svg")
-      .selectAll("circle")
-      .data([data.dst]);
-
-    marker.exit().remove();
-
-    marker
-      .enter()
-      .append("circle")
-      .merge(marker)
-      .attr("id", d => d.id)
-      .attr("cx", d => {
-        //console.log(d);
-        return projection([d.location.lon, d.location.lat])[0];
-      })
-      .attr("cy", d => projection([d.location.lon, d.location.lat])[1]);
-
-    marker
-      .attr("r", 4)
-      .attr("fill", "#c4e3f3")
-      .attr("fill-opacity", 0.7)
-      .attr("stroke", "#361")
-      .attr("stroke-width", "1px")
-      .attr("stroke-opacity", 0.4);
-
-    markerTransition(marker);
+  function d3PlotTarget(data) {
+    
   }
 
   /* function d3PlotIpLocale(data) {
@@ -125,7 +99,7 @@ export default (function() {
       .attr("stroke-opacity", 0.4);
   } */
 
-  function markerTransition(marker) {
+  /* function markerTransition(marker) {
     marker
       .transition()
       .delay(d => Math.floor(Math.random() * 100 + 0))
@@ -153,11 +127,11 @@ export default (function() {
               .attr("fill", "#fff");
           });
       });
-  }
+  } */
 
   return {
     d3DrawMap,
-    d3PlotIpLocale,
+    d3PlotTarget,
     d3PlotHoneyPotLocale
   };
 })();
