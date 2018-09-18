@@ -8,16 +8,25 @@ import { uniq } from "lodash";
 
 export default {
   location: location.actions,
-  subscribeToStream: (gio) => (state, actions) => {
+  subscribeToStream: gio => (state, actions) => {
     client.then(conn => {
       conn.subscribe("/", data => {
-        const dst = Object.assign({ id: ++state.markerid }, data.dst);
+        let contains = state.pots.some(pot => {
+          console.log(pot);
+          return JSON.stringify(data.dst.ip) === JSON.stringify(pot.ip);
+        });
+
+        console.log(contains);
+        const dst = Object.assign(
+          { id: ++state.markerid, radius: 3, increase: contains },
+          data.dst
+        );
         actions.saveSnapshot(data);
         actions.saveHoneyPotlocations(dst);
         actions.plotMap(data);
         actions.plotGio();
       });
-      return {connection: conn}
+      return { connection: conn };
     });
   },
   saveSnapshot: data => state => {
@@ -35,17 +44,16 @@ export default {
     const gio = new Controller(el);
     gio.init();
     actions.subscribeToStream();
-    return {gio: gio}
+    return { gio: gio };
   },
   saveHoneyPotlocations: dst => state => {
-
-    let contains = state.pots.some(elem => {
-      console.log(elem);
-      return JSON.stringify(dst) === JSON.stringify(elem);
+    let contains = state.pots.some(pot => {
+      console.log(pot);
+      return JSON.stringify(dst.ip) === JSON.stringify(pot.ip);
     });
 
-    console.log(contains);
-    if (contains === false) {
+    //console.log(contains);
+    if (contains != true) {
       state.pots.push(dst);
     }
 
@@ -57,12 +65,12 @@ export default {
   },
   plotGio: data => state => {
     console.log(state.snaps);
-    let d = state.snaps.map((el) => {
+    let d = state.snaps.map(el => {
       return {
         e: el.src.country_code2,
         i: el.dst.country_code2,
         v: 1000000
-      }
+      };
     });
     state.gio.addData(d);
   }

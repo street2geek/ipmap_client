@@ -63,7 +63,14 @@ export default (function() {
         return projection([d.location.lon, d.location.lat])[0];
       })
       .attr("cy", d => projection([d.location.lon, d.location.lat])[1])
-      .attr("r", "5px")
+      .attr("r", (d, i) => {
+
+        const curr = i;
+        console.log(curr);
+        
+       return (d.increase)? curr :`${d.radius}px`;
+      
+      })
       .attr("fill", "#01F9F9");
   }
 
